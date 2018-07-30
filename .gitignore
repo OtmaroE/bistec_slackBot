@@ -142,3 +142,7 @@ typings/
 .vscode
 .vscode/launch.json
 package-lock.json
+
+# pagekite.py
+pagekite.py
+

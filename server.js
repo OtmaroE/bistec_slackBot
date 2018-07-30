@@ -1,12 +1,13 @@
+require('dotenv').config();
 const fastify = require('fastify')();
 const slashCommands = require('./slashCommands/bistec');
 const auth = require('./authetication/slackAuth');
-const events = require('./events/events');
+const events = require('./index/events');
 
 fastify.register(require('fastify-formbody'));
 
 fastify.listen(80, (err, address) => {
-    if (err) fastify.log.error(err)
+    if (err) console.log(err)
     console.log(`server listening on ${address}`)
 });
 slashCommands(fastify);
