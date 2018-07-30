@@ -1,15 +1,15 @@
-const register = require('./register');
+const register = {} //require('./register');
 const limits = require('./limits');
-const purchase = require('./purchase');
-const products = require('./products');
-const debt = require('./debt');
+const purchase = {} //require('./purchase');
+const products = {} //require('./products');
+const debt = {} //require('./debt');
 
 const answerMessage = (body) => {
-    const { text } = body;
+    const { text } = body.event;
     const { channel, user } = body.event;
 
     let data;
-    switch(text) {
+    switch(true) {
         case /^register/.test(text): {
             data = {
                 username: body.event.user,
@@ -19,15 +19,15 @@ const answerMessage = (body) => {
             }
             return register(data);
         }
-        case text.startsWith('show'): {
+        case /^show/.test(text): {
             data = {
-                show: text.match(/my|global|\<@\w{9}\>/),
+                show: text.match(/my|global|\<@\w{9}\>/)[0],
                 channel,
                 user,
             }
             return limits.show(data);
         }
-        case text.startsWith('change'): {
+        case /^change/.test(text): {
             data = {
                 user,
                 channel,
@@ -36,7 +36,7 @@ const answerMessage = (body) => {
             }
             return limits.change(data);
         }
-        case text.startsWith('buy'): {
+        case /^buy/.test(text): {
             data.list = text.split(/(\d+)/).splice(1).reduce((prev, cur) => {
                 const test = Number(cur)
                 if (!Number.isNaN(test)) product.quantity = Number(cur);
