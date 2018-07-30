@@ -1,0 +1,27 @@
+{
+  "name": "bistec_bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "fastify": "^1.9.0",
+    "fastify-formbody": "^2.0.1",
+    "request": "^2.87.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OtmaroE/bistec_slackBot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OtmaroE/bistec_slackBot/issues"
+  },
+  "homepage": "https://github.com/OtmaroE/bistec_slackBot#readme"
+}
