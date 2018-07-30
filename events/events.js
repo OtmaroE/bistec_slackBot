@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 module.exports = (fastify) => {
   fastify.post('/event', (req, res) => {
     if(!req.body.event) return res.send();
