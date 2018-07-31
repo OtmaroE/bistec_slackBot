@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { bot_token, password_secret, api_baseURl } = process.env;
+const { bot_token, password_secret, api_baseURl, api_token } = process.env;
 
 const sendMessagetoSlack = (channel, text) => {
     axios.get('https://slack.com/api/chat.postMessage', {
@@ -13,10 +13,9 @@ const sendMessagetoSlack = (channel, text) => {
         console.log(`message sent ${respose}`);
     })
     .catch((err) => {
-        console.log('could not sent message');
+        console.log(err);
     })
 };
-
 function logInGetToken(username) {
     const body = {
         username,

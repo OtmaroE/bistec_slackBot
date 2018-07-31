@@ -1,5 +1,5 @@
 const register = require('./register');
-const limits = {}//require('./limits');
+const limits = require('./limits');
 const purchase = {}//require('./purchase');
 const products = require('./products');
 const debt = {}// require('./debt');
@@ -22,24 +22,25 @@ const answerMessage = (body) => {
             }
             return register(data);
         }
-        case text.startsWith('show'): {
+        case /^show/.test(text): {
             data = {
-                show: text.match(/my|global|\<@\w{9}\>/),
+                show: text.match(/my|global|\<@\w{9}\>/)[0],
                 channel,
                 user,
             }
             return limits.show(data);
         }
-        case text.startsWith('change'): {
+        case /^change/.test(text): {
+            const match = text.match(/\<@\w{9}\>/) ||  text.match('global'),
             data = {
                 user,
                 channel,
-                who: text.match(/\<@\w{9}\>/) ||  text.match('global'),
-                limit: text.match(/\d+$/),
+                who: match[0],
+                limit: text.match(/\d+$/)[0],
             }
             return limits.change(data);
         }
-        case text.startsWith('buy'): {
+        case /^buy/.test(text): {
             data.list = text.split(/(\d+)/).splice(1).reduce((prev, cur) => {
                 const test = Number(cur)
                 if (!Number.isNaN(test)) product.quantity = Number(cur);
