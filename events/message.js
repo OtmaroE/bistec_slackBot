@@ -76,7 +76,7 @@ const answerMessage = (body) => {
                 user,
                 channel,
             };
-            return products.delete(data);
+            return products.deleteProduct(data);
         }
         case /^show debt/.test(text): {
             data.what = text.split(' ')[2];
