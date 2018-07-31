@@ -27,7 +27,7 @@ const change = (data) => {
         axios({method: 'GET', headers, url: `${baseUrl}/users/info/${data.who}`})
             .then(response => {
                 const { data: { _id: userId }} = response;
-                return axios({method, headers: { 'Authorization': api_token, 'content-type':'application/json' }, url: `${baseUrl}/users/${userId}`, data: { limit }});
+                return axios({method, headers, url: `${baseUrl}/users/${userId}`, data: { limit }});
             })
             .then(updated => {
                 return sendMessageToSlack(data.channel, updated.data.message);
