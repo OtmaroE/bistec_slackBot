@@ -17,7 +17,6 @@ const answerMessage = (body) => {
         case /^register/.test(text): {
             data = {
                 username: body.event.user,
-                password: text.split(':')[1],
                 channel,
                 user,
             }
