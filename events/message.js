@@ -58,6 +58,11 @@ const answerMessage = (body) => {
         }
         case /^add product/.test(text): {
             const info = text.match(/name:((\s)?[\w|\s]+)brand:((\s)?[\w|\s]+)price:(\s\d+)$/);
+            if(!info)
+            return helper.sendMessagetoSlack(
+                channel, 
+                'Please use correct format: `add product name: text brand: text price: _number_`'
+            )
             data = {
                 user,
                 channel,
@@ -86,6 +91,7 @@ const answerMessage = (body) => {
             data.amount = info[2];
             data.user = user;
             data.channel = channel;
+            console.log(data);
             return debt.pay(data);
         }
         default: {
