@@ -1,19 +1,23 @@
 const register = require('./register');
-const limits = require('./limits');
-const purchase = require('./purchase');
+const limits = {}//require('./limits');
+const purchase = {}//require('./purchase');
 const products = require('./products');
-const debt = require('./debt');
+const debt = {}// require('./debt');
+const helper = require('./helper');
 
+function defaultMessage(channel) {
+  helper.sendMessagetoSlack(channel, 'No command bound to that sentence');
+}
 const answerMessage = (body) => {
-    const { text } = body;
+    const { text } = body.event;
     const { channel, user } = body.event;
 
     let data;
-    switch(text) {
+    switch(true) {
         case /^register/.test(text): {
             data = {
                 username: body.event.user,
-                password: text.split(':')[2],
+                password: text.split(':')[1],
                 channel,
                 user,
             }
@@ -85,7 +89,7 @@ const answerMessage = (body) => {
             return debt.pay(data);
         }
         default: {
-            return defaultMessage();
+            return defaultMessage(body.event.channel);
         }
     }
 };
