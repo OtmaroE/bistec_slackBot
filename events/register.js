@@ -17,9 +17,9 @@ module.exports = (data) => {
     };
     axios(options)
     .then((response) => {
-        helper.sendMessagetoSlack(data.channel, 'User registered!');
+        helper.sendMessageToSlack(data.channel, 'User registered!');
     })
     .catch((err) => {
-        helper.sendMessagetoSlack(data.channel, err.response.data.message);
+        helper.sendMessageToSlack(data.channel, err.response.data.message);
     });
 };

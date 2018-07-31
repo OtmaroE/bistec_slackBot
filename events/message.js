@@ -2,17 +2,17 @@ const register = require('./register');
 const limits = require('./limits');
 const purchase = {}//require('./purchase');
 const products = require('./products');
-const debt = {}// require('./debt');
+const debt =  require('./debt');
 const helper = require('./helper');
 
 function defaultMessage(channel) {
-  helper.sendMessagetoSlack(channel, 'No command bound to that sentence');
+  helper.sendMessageToSlack(channel, 'No command bound to that sentence');
 }
 const answerMessage = (body) => {
     const { text } = body.event;
     const { channel, user } = body.event;
-
-    let data;
+    console.log(text);
+    let data = {};
     switch(true) {
         case /^register/.test(text): {
             data = {
@@ -59,7 +59,7 @@ const answerMessage = (body) => {
         case /^add product/.test(text): {
             const info = text.match(/name:((\s)?[\w|\s]+)brand:((\s)?[\w|\s]+)price:(\s\d+)$/);
             if(!info)
-            return helper.sendMessagetoSlack(
+            return helper.sendMessageToSlack(
                 channel, 
                 'Please use correct format: `add product name: text brand: text price: _number_`'
             )
@@ -85,13 +85,12 @@ const answerMessage = (body) => {
             data.channel = channel;
             return debt.show(data);
         }
-        case /pays/.test(text): {
-            const info = text.match(/^<@(.{9})> paid (\d*)/)
+        case /paid/.test(text): {
+            const info = text.match(/^<@(\w{9})> paid (\d+)/)
             data.who = info[1];
             data.amount = info[2];
             data.user = user;
             data.channel = channel;
-            console.log(data);
             return debt.pay(data);
         }
         default: {

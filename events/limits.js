@@ -1,4 +1,4 @@
-const { sendMessageToSlack, bistecApiRequest } = require('./helper');
+const { sendMessageToSlack } = require('./helper');
 const { bot_token, api_token } = process.env;
 const axios = require('axios');
 const headers = { 'Authorization': api_token, 'content-type':'application/json' };
