@@ -10,7 +10,7 @@ const create = (data) => {
             "price": Number(data.price),
             "brand": data.brand
         };
-        createProductOptions = {
+        const createProductOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Authorization': token },
             data: createProductBody,
@@ -19,10 +19,10 @@ const create = (data) => {
         return axios(createProductOptions);
     })
     .then((response) => {
-        helper.sendMessagetoSlack(data.channel, response.statusText);
+        helper.sendMessageToSlack(data.channel, response.statusText);
     })
     .catch((err) => {
-        helper.sendMessagetoSlack(data.channel, err.message);
+        helper.sendMessageToSlack(data.channel, err.message);
     })
 }
 
