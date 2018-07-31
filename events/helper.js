@@ -1,7 +1,8 @@
 const axios = require('axios');
-const { bot_token } = process.env;
+const { bot_token, api_token } = process.env;
+const url = 'http://localhost:3000/api';
 
-const sendMessagetoSlack = (channel, text) => {
+const sendMessageToSlack = (channel, text) => {
     axios.get('https://slack.com/api/chat.postMessage', {
         params: {
             token: bot_token,
@@ -13,10 +14,25 @@ const sendMessagetoSlack = (channel, text) => {
         console.log(`message sent ${respose}`);
     })
     .catch((err) => {
-        console.log('could not sent message');
+        console.log(err);
     })
 };
 
+const bistecApiRequest = (route, method = 'GET', data = {}) => {
+    axios({
+        method,
+        headers: {
+            'Authorization': token,
+            'Content-type': 'application/json',
+        },
+        url: url + route,
+        data,
+    })
+    .then(response => response)
+    .catch(err => console.log(err));
+};
+
 module.exports = {
-    sendMessagetoSlack
+    sendMessageToSlack,
+    bistecApiRequest,
 };

@@ -28,11 +28,12 @@ const answerMessage = (body) => {
             return limits.show(data);
         }
         case /^change/.test(text): {
+            console.log('yes');
             data = {
                 user,
                 channel,
-                who: text.match(/\<@\w{9}\>/) ||  text.match('global'),
-                limit: text.match(/\d+$/),
+                who: text.match(/\<@\w{9}\>/)[0].substring(2,11) ||  text.match('global'),
+                limit: text.match(/\d+$/)[0],
             }
             return limits.change(data);
         }

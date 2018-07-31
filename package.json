@@ -13,7 +13,8 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "sudo node server.js"
+    "start": "sudo node server.js",
+    "dev": "sudo node --inspect=12345 server.js"
   },
   "repository": {
     "type": "git",
