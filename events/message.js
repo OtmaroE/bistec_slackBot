@@ -22,6 +22,12 @@ const answerMessage = (body) => {
             }
             return register(data);
         }
+        case /^show debt/.test(text): {
+            data.user = user;
+            data.channel = channel;
+            data.detailed = (text.includes('detailed'));
+            return debt.show(data);
+        }
         case /^show/.test(text): {
             data = {
                 show: text.match(/my|global|\<@\w{9}\>/)[0],
@@ -78,12 +84,6 @@ const answerMessage = (body) => {
                 channel,
             };
             return products.delete(data);
-        }
-        case /^show debt/.test(text): {
-            data.what = text.split(' ')[2];
-            data.user = user;
-            data.channel = channel;
-            return debt.show(data);
         }
         case /paid/.test(text): {
             const info = text.match(/^<@(\w{9})> paid (\d+)/)

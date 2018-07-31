@@ -7,4 +7,4 @@ module.exports = (fastify) => {
     reply.send();
     return api.answerMessage(req.body);
   })
-}
+};
