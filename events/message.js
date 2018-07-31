@@ -1,9 +1,13 @@
-const register = {} //require('./register');
+const register = require('./register');
 const limits = require('./limits');
-const purchase = {} //require('./purchase');
-const products = {} //require('./products');
-const debt = {} //require('./debt');
+const purchase = {}//require('./purchase');
+const products = require('./products');
+const debt = {}// require('./debt');
+const helper = require('./helper');
 
+function defaultMessage(channel) {
+  helper.sendMessagetoSlack(channel, 'No command bound to that sentence');
+}
 const answerMessage = (body) => {
     const { text } = body.event;
     const { channel, user } = body.event;
@@ -13,7 +17,6 @@ const answerMessage = (body) => {
         case /^register/.test(text): {
             data = {
                 username: body.event.user,
-                password: text.split(':')[2],
                 channel,
                 user,
             }
@@ -55,6 +58,11 @@ const answerMessage = (body) => {
         }
         case /^add product/.test(text): {
             const info = text.match(/name:((\s)?[\w|\s]+)brand:((\s)?[\w|\s]+)price:(\s\d+)$/);
+            if(!info)
+            return helper.sendMessagetoSlack(
+                channel, 
+                'Please use correct format: `add product name: text brand: text price: _number_`'
+            )
             data = {
                 user,
                 channel,
@@ -83,10 +91,11 @@ const answerMessage = (body) => {
             data.amount = info[2];
             data.user = user;
             data.channel = channel;
+            console.log(data);
             return debt.pay(data);
         }
         default: {
-            return defaultMessage();
+            return defaultMessage(body.event.channel);
         }
     }
 };
