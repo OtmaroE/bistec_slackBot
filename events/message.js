@@ -11,7 +11,7 @@ function defaultMessage(channel) {
 const answerMessage = (body) => {
     const { text } = body.event;
     const { channel, user } = body.event;
-
+    if(!text) return;
     let data;
     switch(true) {
         case /^register/.test(text): {
