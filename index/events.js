@@ -8,6 +8,7 @@ module.exports = (fastify) => {
     return events.answerMessage(req.body);
   })
   fastify.post('/actions', (req, reply) => {
+    reply.status(200).send();
     const payload = JSON.parse(req.body.payload);
     return actions.answerInteraction(payload);
   })
