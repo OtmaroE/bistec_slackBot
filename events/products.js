@@ -1,7 +1,7 @@
 const axios = require('axios');
 const helper = require('./helper');
 const { api_token, api_baseUrl, bot_token } = process.env;
-const productList = require('./interactiveJson/productList.json');
+const productList = require('../interactiveJson/productList.json');
 
 const create = (data) => {
     helper.logInGetToken(data.user)
@@ -36,11 +36,15 @@ const deleteProduct = (data) => {
     .then((response) => {
         if(!response.data[0] | !response.data[0].name)
             Promise.reject('There are not products to delete');
-        let nameArray = response.data[0].name
-        if(response.data.length > 1)
-            nameArray = response.data.map((element) => element.name);
-        for (let name of nameArray){
-            productList[0].actions[0].options.push({ text: name, value: name });
+        producArray = response.data.map((element) => { 
+                return {
+                    'name': element.name, 
+                    'id': element._id 
+                }
+            });
+        productList[0].actions[0].options = [];
+        for (let product of producArray){
+            productList[0].actions[0].options.push({ 'text': product.name, 'value': JSON.stringify({ name: product.name, id: product.id }) });
         }
         return axios.get('https://slack.com/api/chat.postEphemeral', {
             params: {
