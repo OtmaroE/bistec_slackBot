@@ -10,6 +10,7 @@
                 "name": "product_list",
                 "text": "Select a product...",
                 "type": "select",
+                "value": "omg",
                 "options": []
             }
         ]
