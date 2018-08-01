@@ -1,0 +1,27 @@
+{
+    "text": "Would you like to play a game?",
+    "attachments": [
+        {
+            "text": "Please confirm your decision",
+            "fallback": "Please confirm your decision",
+            "callback_id": "delete",
+            "color": "#3AA3E3",
+            "attachment_type": "default",
+            "actions": [
+                {
+                    "name": "cancel",
+                    "text": "No, abort",
+                    "type": "button",
+                    "value": "cancel"
+                },
+                {
+                    "name": "delete",
+                    "text": "yes, delete!",
+                    "style": "danger",
+                    "type": "button",
+                    "value": "delete"
+                }
+            ]
+        }
+    ]
+}
